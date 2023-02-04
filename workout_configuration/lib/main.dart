@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:workout_configuration/logic/box_notifier.dart';
+import 'package:workout_configuration/util/constants.dart';
 import 'package:workout_configuration/util/utils.dart';
 import 'dart:developer' as devtools show log;
 
@@ -96,17 +97,17 @@ class _HomeState extends State<Home> {
                   Positioned(
                     top: _top - boxWidth - 10,
                     left: notifier.fbp.dx / 2 - 10,
-                    child: _buildIcon(Icons.run_circle_outlined),
+                    child: _buildIcon(Constants.runnerImage),
                   ),
                   Positioned(
                     top: _top - boxWidth - 10,
                     left: notifier.fbp.dx + (notifier.sbp.dx - notifier.fbp.dx) / 2 - 10,
-                    child: _buildIcon(Icons.link_off_outlined),
+                    child: _buildIcon(Constants.dumbBellImage),
                   ),
                   Positioned(
                     top: _top - boxWidth - 10,
                     left: notifier.sbp.dx + (width - notifier.sbp.dx) / 2 - 10,
-                    child: _buildIcon(Icons.safety_check_outlined),
+                    child: _buildIcon(Constants.stretchingImage),
                   ),
                   Positioned(
                     left: notifier.fbp.dx - boxWidth / 2,
@@ -131,21 +132,31 @@ class _HomeState extends State<Home> {
                   ),
                   // Pop Ups work
                   Positioned(
-                    top: _top - boxWidth * 2.5,
+                    top: _top - boxWidth * 2.3,
                     left: notifier.fbp.dx - (85.0 / 2.0) + 1,
                     child: AnimatedScale(
                       duration: 100.ms,
                       scale: notifier.lfb ? 1.0 : 0.0,
-                      child: _buildPopUpContainer(fp, sp),
+                      child: _buildPopUpContainer(
+                        fp,
+                        sp,
+                        leftColor: AppColor.lightOrange,
+                        rightColor: AppColor.lightPurple,
+                      ),
                     ),
                   ),
                   Positioned(
-                    top: _top - boxWidth * 2.5,
+                    top: _top - boxWidth * 2.3,
                     left: notifier.sbp.dx - (85.0 / 2.0) + 1,
                     child: AnimatedScale(
                       duration: 100.ms,
                       scale: notifier.lsb ? 1.0 : 0.0,
-                      child: _buildPopUpContainer(sp, tp),
+                      child: _buildPopUpContainer(
+                        sp,
+                        tp,
+                        leftColor: AppColor.lightPurple,
+                        rightColor: AppColor.lightBlue,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -186,7 +197,7 @@ class _HomeState extends State<Home> {
                   ),
                 ],
               ),
-              child: _buildIcon(Icons.compare_arrows_rounded, color: Colors.black),
+              child: const Icon(Icons.compare_arrows_rounded),
             ),
           ),
         ),
@@ -194,7 +205,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  _buildPopUpContainer(double left, double right) {
+  _buildPopUpContainer(double left, double right, {required Color leftColor, required Color rightColor}) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -207,37 +218,56 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      child: SizedBox(
-        width: 85,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text("${left.floor()}%"),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildPopupChild(
+            percent: left,
+            color: leftColor,
+          ),
+          const ColoredBox(
+            color: AppColor.lightTertiaryGray,
+            child: SizedBox(
+              width: 1,
+              height: 30,
             ),
-            const ColoredBox(
-              color: AppColor.lightTertiaryGray,
-              child: SizedBox(
-                width: 1,
-                height: 30,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text("${right.floor()}%"),
-            ),
-          ],
-        ),
+          ),
+          _buildPopupChild(
+            percent: right,
+            color: rightColor,
+          ),
+        ],
       ),
     );
   }
 
-  Icon _buildIcon(IconData iconData, {Color color = Colors.white, double size = 24}) {
-    return Icon(
-      iconData,
-      color: color,
-      size: size,
+  _buildPopupChild({
+    required double percent,
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ColoredBox(
+            color: color,
+            child: const SizedBox(height: 2, width: 14),
+          ),
+          Text(
+            "${percent.floor()}%",
+            style: Theme.of(context).textTheme.bodyLarge!,
+          ),
+        ],
+      ),
+    );
+  }
+
+  _buildIcon(String imageUrl) {
+    return Image.asset(
+      imageUrl,
+      height: 25,
+      width: 25,
     );
   }
 }

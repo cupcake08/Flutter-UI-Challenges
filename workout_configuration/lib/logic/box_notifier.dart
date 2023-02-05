@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 
 class BoxNotifier extends ChangeNotifier {
   late Offset _firstBoxPosition, _secondBoxPosition;
-
-  Offset get fbp => _firstBoxPosition;
-  Offset get sbp => _secondBoxPosition;
-
   bool _liftFirstBox = false;
   bool _liftSecondBox = false;
 
+  // Getters
+  Offset get fbp => _firstBoxPosition;
+  Offset get sbp => _secondBoxPosition;
   bool get lfb => _liftFirstBox;
   bool get lsb => _liftSecondBox;
 
@@ -16,8 +15,6 @@ class BoxNotifier extends ChangeNotifier {
     _firstBoxPosition = Offset.zero;
     _secondBoxPosition = Offset.zero;
   }
-
-  // TODO: unite left box functions
 
   set liftFirstBox(bool value) {
     _liftFirstBox = value;
@@ -29,7 +26,7 @@ class BoxNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  changeBoxPosition(Offset first, Offset second, {bool notify = false}) {
+  void changeBoxPosition(Offset first, Offset second, {bool notify = false}) {
     _firstBoxPosition = first;
     _secondBoxPosition = second;
     if (notify) {

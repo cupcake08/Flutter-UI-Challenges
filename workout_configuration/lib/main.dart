@@ -167,9 +167,8 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
     final expandedHeight = height * .4;
     final collapsedHeight = height * .2;
     return Scaffold(
-      drawer: const Drawer(),
-      extendBodyBehindAppBar: true,
       body: Stack(
+        alignment: Alignment.topCenter,
         children: [
           // build background things.
           Consumer<BoxNotifier>(builder: (context, value, child) => _buildBackGroundGrid()),
@@ -442,13 +441,26 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                   );
                 },
               ),
-              const SliverToBoxAdapter(
-                child: ColoredBox(
-                  color: Colors.transparent,
-                  child: SizedBox(height: 50),
-                ),
-              ),
             ],
+          ),
+          SizedBox(
+            height: kToolbarHeight + MediaQuery.of(context).padding.top,
+            child: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back_ios),
+                onPressed: () {},
+              ),
+              iconTheme: const IconThemeData(color: AppColor.black),
+              actionsIconTheme: const IconThemeData(color: AppColor.black),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.search),
+                  onPressed: () {},
+                ),
+              ],
+            ),
           ),
         ],
       ),

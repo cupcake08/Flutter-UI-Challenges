@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:workout_configuration/logic/box_notifier.dart';
 import 'package:workout_configuration/ui/slider.dart';
 import 'package:workout_configuration/util/utils.dart';
+import 'dart:math' show Random;
 
 void main() => runApp(const MyApp());
 
@@ -57,8 +58,8 @@ class BackGroundGridPainter extends CustomPainter {
     !applyGradient
         ? _paint.color = AppColor.lightOrange.withAlpha(80)
         : _paint.shader = LinearGradient(
-            colors: [
-              AppColor.lightOrange.withAlpha(60),
+            colors: const [
+              Color.fromARGB(255, 253, 230, 213),
               AppColor.lightTertiaryGray,
             ],
             stops: stops,
@@ -70,8 +71,8 @@ class BackGroundGridPainter extends CustomPainter {
     !applyGradient
         ? _paint.color = AppColor.lightPurple.withAlpha(60)
         : _paint.shader = LinearGradient(
-            colors: [
-              AppColor.lightPurple.withOpacity(.1),
+            colors: const [
+              Color.fromARGB(255, 210, 198, 249),
               AppColor.lightTertiaryGray,
             ],
             stops: stops,
@@ -84,8 +85,8 @@ class BackGroundGridPainter extends CustomPainter {
     !applyGradient
         ? _paint.color = AppColor.lightBlue.withAlpha(60)
         : _paint.shader = LinearGradient(
-            colors: [
-              AppColor.lightBlue.withOpacity(.1),
+            colors: const [
+              Color.fromARGB(255, 205, 238, 249),
               AppColor.lightTertiaryGray,
             ],
             stops: stops,
@@ -117,10 +118,12 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
   double? _top;
   final double boxWidth = 40.0;
   List<DropdownMenuItem<int>>? workoutPart;
+  late final ValueNotifier<bool> _showAppBarTitle;
 
   @override
   void initState() {
     super.initState();
+    _showAppBarTitle = ValueNotifier(false);
     _first = 0.0;
   }
 
@@ -167,10 +170,9 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
     final expandedHeight = height * .4;
     final collapsedHeight = height * .2;
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Stack(
-        alignment: Alignment.topCenter,
         children: [
-          // build background things.
           Consumer<BoxNotifier>(builder: (context, value, child) => _buildBackGroundGrid()),
           NestedScrollView(
             body: ListView.builder(
@@ -178,15 +180,28 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (_, index) {
-                return Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColor.lightTertiaryGray,
+                final rand = Random().nextInt(10);
+                return ListTile(
+                  minLeadingWidth: 100,
+                  trailing: Icon(
+                    rand == index ? Icons.favorite : Icons.favorite_outline,
+                    color: rand == index ? AppColor.lightRed : null,
                   ),
-                  height: 80.0,
-                  child: Center(
-                    child: Text('$index', textScaleFactor: 5),
+                  title: Text(
+                    "Yoga Name",
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(fontSize: 17, fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Text(
+                    "12 times",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  leading: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 129, 92, 248),
+                    ),
+                    height: 120,
+                    width: 100,
                   ),
                 );
               },
@@ -195,6 +210,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
               SliverLayoutBuilder(
                 builder: (context, constraints) {
                   bool flag = constraints.scrollOffset >= collapsedHeight;
+                  WidgetsBinding.instance.addPostFrameCallback((_) => _showAppBarTitle.value = flag);
                   return SliverAppBar.large(
                     shadowColor: Colors.transparent,
                     backgroundColor: !flag ? Colors.transparent : AppColor.lightTertiaryGray,
@@ -291,7 +307,7 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                                   ),
                                 ],
                               ),
-                              child: _buildIcon(Constants.sliderIcon),
+                              child: _buildIcon(Constants.sliderIcon,color: AppColor.black),
                             ),
                           ),
                         ],
@@ -299,18 +315,6 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                     ),
                     flexibleSpace: LayoutBuilder(builder: (context, constranints) {
                       return FlexibleSpaceBar(
-                        centerTitle: true,
-                        titlePadding: EdgeInsets.only(bottom: collapsedHeight - kToolbarHeight),
-                        title: AnimatedOpacity(
-                          opacity: flag ? 1.0 : 0.0,
-                          duration: 100.ms,
-                          child: DropdownButton(
-                            items: workoutPart,
-                            value: 1,
-                            onChanged: (value) {},
-                            underline: const SizedBox.shrink(),
-                          ),
-                        ),
                         background: Column(
                           children: [
                             Transform.translate(
@@ -325,7 +329,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                                       Text("New", style: Theme.of(context).textTheme.displayMedium),
                                       Text(
                                         "Workout",
-                                        style: Theme.of(context).textTheme.displaySmall!.copyWith(color: AppColor.lightPrimaryGray),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displaySmall!
+                                            .copyWith(color: AppColor.lightPrimaryGray),
                                       ),
                                     ],
                                   ),
@@ -345,7 +352,10 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                                           // title
                                           Text(
                                             "Muscle",
-                                            style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColor.lightPrimaryGray),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge!
+                                                .copyWith(color: AppColor.lightPrimaryGray),
                                           ),
                                           DropdownButton(
                                             underline: const SizedBox.shrink(),
@@ -452,6 +462,19 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
                 icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () {},
               ),
+              centerTitle: true,
+              titleSpacing: 0.0,
+              title: ValueListenableBuilder(
+                valueListenable: _showAppBarTitle,
+                builder: (context, showAppBar, child) => showAppBar ? child! : const SizedBox.shrink(),
+                child: DropdownButton(
+                  items: workoutPart,
+                  value: 1,
+                  style: Theme.of(context).textTheme.displayLarge,
+                  onChanged: (value) {},
+                  underline: const SizedBox.shrink(),
+                ),
+              ),
               iconTheme: const IconThemeData(color: AppColor.black),
               actionsIconTheme: const IconThemeData(color: AppColor.black),
               actions: [
@@ -503,11 +526,12 @@ class _WorkoutSelectionScreenState extends State<WorkoutSelectionScreen> {
     );
   }
 
-  _buildIcon(String imageUrl, {double size = 25}) {
+  _buildIcon(String imageUrl, {double size = 25,Color color = AppColor.lightPrimaryGray}) {
     return Image.asset(
       imageUrl,
       height: size,
       width: size,
+      color: color,
     );
   }
 

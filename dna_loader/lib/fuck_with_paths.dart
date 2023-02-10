@@ -8,12 +8,16 @@ class FuckAroundWithPaths extends CustomPainter {
   final Color color;
   final double dist;
   final AnimationController _controller;
-  FuckAroundWithPaths(this._controller, this.color, this.dist)
-      : _paint = Paint()
-          ..color = color.withOpacity(.9)
+  FuckAroundWithPaths(
+    this._controller,
+    this.color,
+    this.dist,
+  )   : _paint = Paint()
+          ..color = color
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 3
-          ..strokeCap = StrokeCap.round,
+          ..strokeWidth = 5
+          ..blendMode = BlendMode.screen
+          ..strokeCap = StrokeCap.butt,
         super(repaint: _controller);
 
   @override
@@ -27,13 +31,12 @@ class FuckAroundWithPaths extends CustomPainter {
         const Radius.circular(30),
       ),
     );
-    // canvas.drawPath(path, _paint);
     final metrices = path.computeMetrics().toList();
     final Path p2 = Path();
     for (PathMetric mat in metrices) {
       double len = mat.length;
       final start = (len) * _controller.value + dist;
-      final gap = len / 2;
+      final gap = len / 2.5;
       final end = start + gap;
       final p1 = mat.extractPath(start, end);
       p2.addPath(p1, Offset.zero);
@@ -65,7 +68,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(milliseconds: 4500),
     );
     _controller
       ..forward()
@@ -80,7 +83,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
 
   _angleToRadian(double angle) => angle * pi / 180.0;
 
-  _buildLowerTransformOrange(Vector3 shifts, double dist) {
+  _buildLowerTransformOrange(Vector3 shifts, double dist, Color color) {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
@@ -90,7 +93,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
         ..translate(shifts),
       child: _buildChildElement(
         angles: [0.0, -pi / 4, pi / 4],
-        color: Colors.orange,
+        color: color,
         dist: dist,
         alignemtAxis: Alignment.center,
         translate: Vector3(0.0, 0.0, 0.0),
@@ -98,7 +101,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     );
   }
 
-  _buildLowerTransformBlue(Vector3 shifts, double dist) {
+  _buildLowerTransformBlue(Vector3 shifts, double dist, Color color) {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
@@ -108,7 +111,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
         ..translate(shifts),
       child: _buildChildElement(
         angles: [0.0, -pi / 4, pi / 4],
-        color: Colors.blue,
+        color: color,
         dist: dist,
         alignemtAxis: Alignment.center,
         translate: Vector3(0.0, 0.0, 0.0),
@@ -116,7 +119,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     );
   }
 
-  _buildLowerTransformRed(Vector3 shifts, dist) {
+  _buildLowerTransformRed(Vector3 shifts, dist, Color lineColor) {
     return Transform(
       alignment: Alignment.center,
       transform: Matrix4.identity()
@@ -126,8 +129,8 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
         ..translate(shifts),
       child: _buildChildElement(
         angles: [0, pi / 4, -pi / 4],
-        color: Colors.red,
         dist: dist,
+        color: lineColor,
         alignemtAxis: Alignment.center,
         translate: Vector3(0.0, 0.0, 0.0),
       ),
@@ -135,33 +138,34 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
   }
 
   _buildChildElements() {
-    double distGap = 20.0;
+    double distGap = 15.0;
     return Stack(
       children: [
         // we need 3 rectangles
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -60.0), 7 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -40.0), 6 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -20.0), 5 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 0.0), 4 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 20.0), 3 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 40.0), 2 * distGap),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 60.0), 1 * distGap),
 
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -60.0), 7 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -40.0), 6 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -20.0), 4 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 0.0), 4 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 20.0), 3 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 40.0), 2 * distGap),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 60.0), 1 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -65.0), 6 * distGap, Colors.red),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -45.0), 5 * distGap, Color.fromARGB(255, 244, 67, 54)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -25.0), 4 * distGap, Color.fromARGB(255, 197, 69, 46)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 188, 60, 18)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 25.0), 2 * distGap, Color.fromARGB(255, 196, 149, 67)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 45.0), 1 * distGap, Color.fromARGB(255, 195, 214, 54)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 65.0), 0 * distGap, Color.fromARGB(255, 202, 215, 100)),
 
-        _buildLowerTransformRed(Vector3(0.0, 0.0, -60.0), 7 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, -40.0), 6 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, -20.0), 5 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 0.0), 4 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 20.0), 3 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 40.0), 2 * distGap),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 60.0), 1 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -65.0), 0 * distGap, Color.fromARGB(255, 187, 33, 243)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -45.0), 1 * distGap, Color.fromARGB(255, 209, 45, 224)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -25.0), 2 * distGap, Color.fromARGB(255, 139, 40, 238)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 120, 36, 230)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 25.0), 4 * distGap, Color.fromARGB(255, 33, 90, 240)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 45.0), 5 * distGap, Color.fromARGB(255, 33, 107, 240)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 65.0), 6 * distGap, Colors.blue),
+
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -65.0), 6 * distGap, Color.fromARGB(255, 111, 220, 115)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -45.0), 5 * distGap, Color.fromARGB(255, 76, 175, 107)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -25.0), 4 * distGap, Color.fromARGB(255, 76, 175, 112)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 76, 175, 140)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 25.0), 2 * distGap, Color.fromARGB(255, 76, 175, 147)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 45.0), 1 * distGap, Color.fromARGB(255, 76, 175, 168)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 65.0), 0 * distGap, Color.fromARGB(255, 40, 192, 200)),
       ],
     );
   }
@@ -174,18 +178,6 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     required Alignment alignemtAxis,
   }) {
     return Container(
-      // transform: Matrix4.identity()..translate(vector),
-      // transform: Matrix4.identity()
-      //   ..rotateX(angles[0])
-      //   ..rotateY(angles[1])
-      //   ..rotateZ(angles[2])
-      //   ..translate(translate),
-      // transformAlignment: alignemtAxis,
-      decoration: BoxDecoration(
-        // color: color.withOpacity(.4),
-        // border: Border.all(color: Colors.pink),
-        borderRadius: BorderRadius.circular(10),
-      ),
       height: 200,
       width: 200,
       child: CustomPaint(

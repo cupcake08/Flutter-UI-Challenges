@@ -25,8 +25,9 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("DNA LOADER"),
+        title: const Text("3D CUBE"),
         centerTitle: true,
       ),
       body: const Center(

@@ -6,36 +6,39 @@ import 'package:vector_math/vector_math_64.dart' show Vector3;
 class FuckAroundWithPaths extends CustomPainter {
   final Paint _paint;
   final Color color;
+  final double dist;
   final AnimationController _controller;
-  FuckAroundWithPaths(this._controller, this.color)
+  FuckAroundWithPaths(this._controller, this.color, this.dist)
       : _paint = Paint()
-          ..color = color
+          ..color = color.withOpacity(.9)
           ..style = PaintingStyle.stroke
-          ..strokeWidth = 5,
+          ..strokeWidth = 3
+          ..strokeCap = StrokeCap.round,
         super(repaint: _controller);
 
   @override
   void paint(Canvas canvas, Size size) {
     canvas.save();
     Path path = Path();
-    final center = Offset(size.width / 2 - 25, size.height / 2 - 100);
+    final center = Offset(size.width / 2, size.height / 2);
     path.addRRect(
       RRect.fromRectAndRadius(
         Rect.fromCenter(center: center, width: 200, height: 200),
-        const Radius.circular(10),
+        const Radius.circular(30),
       ),
     );
+    // canvas.drawPath(path, _paint);
     final metrices = path.computeMetrics().toList();
     final Path p2 = Path();
     for (PathMetric mat in metrices) {
-      final len = mat.length;
-      final start = len * _controller.value;
-      final gap = len / 2.5;
+      double len = mat.length;
+      final start = (len) * _controller.value + dist;
+      final gap = len / 2;
       final end = start + gap;
       final p1 = mat.extractPath(start, end);
       p2.addPath(p1, Offset.zero);
       if (end > len) {
-        p2.addPath(mat.extractPath(0.0, end - len), Offset.zero);
+        p2.addPath(mat.extractPath(start - len, end - len), Offset.zero);
       }
     }
     canvas.drawPath(p2, _paint);
@@ -75,45 +78,124 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     super.dispose();
   }
 
+  _angleToRadian(double angle) => angle * pi / 180.0;
+
+  _buildLowerTransformOrange(Vector3 shifts, double dist) {
+    return Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()
+        ..rotateX(_angleToRadian(45))
+        ..rotateY(_angleToRadian(0))
+        ..rotateZ(_angleToRadian(-45))
+        ..translate(shifts),
+      child: _buildChildElement(
+        angles: [0.0, -pi / 4, pi / 4],
+        color: Colors.orange,
+        dist: dist,
+        alignemtAxis: Alignment.center,
+        translate: Vector3(0.0, 0.0, 0.0),
+      ),
+    );
+  }
+
+  _buildLowerTransformBlue(Vector3 shifts, double dist) {
+    return Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()
+        ..rotateX(_angleToRadian(45))
+        ..rotateY(_angleToRadian(45))
+        ..rotateZ(_angleToRadian(0))
+        ..translate(shifts),
+      child: _buildChildElement(
+        angles: [0.0, -pi / 4, pi / 4],
+        color: Colors.blue,
+        dist: dist,
+        alignemtAxis: Alignment.center,
+        translate: Vector3(0.0, 0.0, 0.0),
+      ),
+    );
+  }
+
+  _buildLowerTransformRed(Vector3 shifts, dist) {
+    return Transform(
+      alignment: Alignment.center,
+      transform: Matrix4.identity()
+        ..rotateX(_angleToRadian(-45))
+        ..rotateY(_angleToRadian(45))
+        ..rotateZ(_angleToRadian(0))
+        ..translate(shifts),
+      child: _buildChildElement(
+        angles: [0, pi / 4, -pi / 4],
+        color: Colors.red,
+        dist: dist,
+        alignemtAxis: Alignment.center,
+        translate: Vector3(0.0, 0.0, 0.0),
+      ),
+    );
+  }
+
   _buildChildElements() {
+    double distGap = 20.0;
     return Stack(
       children: [
-        _buildChildElement(Vector3(-10.0, -10.0, 10.0), Colors.pink),
-        _buildChildElement(Vector3(-20.0, -20.0, 30.0), Colors.blue),
-        _buildChildElement(Vector3(-30.0, -30.0, 50.0), Colors.orange),
-        _buildChildElement(Vector3(-40.0, -40.0, 70.0), Colors.purple),
+        // we need 3 rectangles
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -60.0), 7 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -40.0), 6 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -20.0), 5 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 0.0), 4 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 20.0), 3 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 40.0), 2 * distGap),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 60.0), 1 * distGap),
+
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -60.0), 7 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -40.0), 6 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -20.0), 4 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 0.0), 4 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 20.0), 3 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 40.0), 2 * distGap),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 60.0), 1 * distGap),
+
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -60.0), 7 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -40.0), 6 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -20.0), 5 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 0.0), 4 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 20.0), 3 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 40.0), 2 * distGap),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 60.0), 1 * distGap),
       ],
     );
   }
 
-  _buildChildElement(Vector3 vector, Color color) {
+  _buildChildElement({
+    required List<double> angles,
+    required Color color,
+    required double dist,
+    required Vector3 translate,
+    required Alignment alignemtAxis,
+  }) {
     return Container(
-      transform: Matrix4.identity()..translate(vector),
+      // transform: Matrix4.identity()..translate(vector),
+      // transform: Matrix4.identity()
+      //   ..rotateX(angles[0])
+      //   ..rotateY(angles[1])
+      //   ..rotateZ(angles[2])
+      //   ..translate(translate),
+      // transformAlignment: alignemtAxis,
       decoration: BoxDecoration(
+        // color: color.withOpacity(.4),
         // border: Border.all(color: Colors.pink),
         borderRadius: BorderRadius.circular(10),
       ),
+      height: 200,
+      width: 200,
       child: CustomPaint(
-        painter: FuckAroundWithPaths(_controller, color),
+        painter: FuckAroundWithPaths(_controller, color, dist),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.topCenter,
-      children: [
-        Transform(
-          transform: Matrix4.identity()
-            ..rotateZ(0)
-            ..rotateX(pi / 6)
-            ..rotateY(-pi / 6)
-            ..translate(80.0, 150),
-          child: _buildChildElements(),
-        ),
-        // more work to do..
-      ],
-    );
+    return _buildChildElements();
   }
 }

@@ -1,5 +1,4 @@
-import 'dart:math' as math show pi, sin, pow;
-import 'package:dna_loader/extension.dart';
+import 'dart:math' as math show pi, sin, Random, cos;
 import 'package:flutter/material.dart';
 
 class DNALoader extends StatefulWidget {
@@ -31,103 +30,134 @@ class Circle extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class _DNALoaderState extends State<DNALoader> with SingleTickerProviderStateMixin {
+class _DNALoaderState extends State<DNALoader> with TickerProviderStateMixin {
   late AnimationController _controller;
   // late Animation<double> _animation;
+  // List<Animation<double>> _animationList = [];
+  late List<Color> _colorsList;
+  late Animation<double> _animation;
+  // late List<AnimationController> _animationControllers;
+  final _kAnimationDuration = const Duration(seconds: 3);
   double cnt = 8.000000;
 
-  late List<Animation<double>> _animations1, _animations2;
+  int lengthOfBoxes = 10;
+
+  double dist = 15.0;
 
   @override
   void initState() {
     super.initState();
-    double gap = cnt / 100.0;
-    // "gap: $gap".log();
-    double start = 0.0;
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(seconds: 3),
     );
 
-    _animations1 = List.generate(cnt.toInt() ~/ 2, (index) {
-      // calc interval for this index.
-      start += gap;
-      double end = index < (cnt.toInt() / 2) ? 0.5 : 1.0;
-      // end.log();
-      // start.log();
-      final Animation<double> animation = Tween<double>(begin: 0.0, end: math.pi * 2).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Interval(
-            start,
-            1.0,
-          ),
-        ),
-      );
-      return animation;
+    // for (int i = 1; i <= lengthOfBoxes; i++) {
+    //   final controller = AnimationController(
+    //     vsync: this,
+    //     duration: _kAnimationDuration,
+    //   );
+    //   _animationControllers.add(controller);
+    // }
+
+    // setState(() {});
+
+    _colorsList = List.generate(lengthOfBoxes, (index) {
+      return Colors.primaries[math.Random().nextInt(lengthOfBoxes)];
     });
 
-    start = 0.0;
-    _animations2 = List.generate(cnt.toInt() ~/ 2, (index) {
-      // calc interval for this index.
-      start += gap;
-      double end = index < (cnt.toInt() / 2) ? 0.5 : 1.0;
-      // end.log();
-      // start.log();
-      Animation<double> animation = Tween<double>(begin: 0.0, end: math.pi * 2).animate(
-        CurvedAnimation(
-          parent: _controller,
-          curve: Interval(
-            start,
-            1.0,
-          ),
-        ),
-      );
-      animation = ReverseAnimation(animation);
-      return animation;
-    });
+    // for (int i = 1; i <= lengthOfBoxes; i++) {
+    //   int delay = (math.sin((i / lengthOfBoxes) * (math.pi / 4)) * 2).toInt();
+    //   Timer(Duration(seconds: delay), () {
+    //     _animationControllers[i - 1]
+    //       ..forward()
+    //       ..repeat();
+    //   });
+    // }
 
-    _animations1.length.log();
-    _animations2.length.log();
+    // for (int i = 1; i <= lengthOfBoxes; i++) {
+    //   // calculate delay.
+    //   double delay = math.sin(((i - 1) / lengthOfBoxes) * (math.pi / 4));
+    //   double end = math.sin((i / lengthOfBoxes) * (math.pi));
+    //   "delay: $delay,end: $end".log();
+    //   final animation = Tween(begin: -math.pi, end: math.pi).animate(
+    //     CurvedAnimation(
+    //       parent: _controller,
+    //       curve: Interval(
+    //         delay,
+    //         1.0,
+    //         curve: Curves.easeInOut,
+    //       ),
+    //     ),
+    // )
+    // _animationList.add(animation);
+    // }
+
+    _controller
+      ..forward()
+      ..repeat(reverse: false);
   }
 
   @override
   void dispose() {
+    _controller.removeListener(() {});
     _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    _controller
-      ..reset()
-      ..repeat();
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) {
-        return ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-            itemCount: cnt.toInt(),
-            itemBuilder: (context, index) {
-              return Transform(
-                transform: Matrix4.identity()
-                  ..translate(
-                      0.0,
-                      20 *
-                          math.sin(cnt.toInt() ~/ 2 < index - 1
-                              ? _animations1[index % (cnt.toInt() ~/ 2)].value
-                              : _animations2[index % (cnt.toInt() ~/ 2)].value)),
-                child: child,
-              );
-            });
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 5),
-        child: CustomPaint(
-          painter: Circle(_controller),
-          size: const Size(20, 20),
-        ),
+    final size = MediaQuery.of(context).size;
+    return Container(
+      color: Colors.white,
+      height: 300,
+      width: size.width,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return Stack(
+                    children: [
+                      Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..translate(
+                            50.0,
+                            -40 * math.sin((math.pi * 2 * _controller.value) + (index / 5 + 10)),
+                            _controller.value * 20,
+                          ),
+                        child: child,
+                      ),
+                      Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..translate(
+                            50.0,
+                            40 * math.sin((math.pi * 2 * _controller.value) + (index / 5 + 10)),
+                            (1 - _controller.value) * 20,
+                          ),
+                        child: child,
+                      ),
+                    ],
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.primaries[math.Random().nextInt(Colors.primaries.length)]),
+                  height: 15,
+                  width: 15,
+                ),
+              ),
+            ],
+          );
+        },
+        itemCount: lengthOfBoxes + 3,
       ),
     );
   }

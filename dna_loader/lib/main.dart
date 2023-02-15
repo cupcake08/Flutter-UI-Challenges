@@ -1,5 +1,4 @@
 import 'package:dna_loader/dna_loader.dart';
-import 'package:dna_loader/fuck_with_paths.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -28,12 +26,10 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("3D CUBE"),
+        title: const Text("DNA Loader"),
         centerTitle: true,
       ),
-      body: const Center(
-        child: DNALoader(),
-      ),
+      body: const Center(child: DNALoader()),
     );
   }
 }

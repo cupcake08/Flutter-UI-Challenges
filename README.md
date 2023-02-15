@@ -15,3 +15,9 @@ https://user-images.githubusercontent.com/71999020/218144098-1ae85f9d-56ce-4d60-
 
 https://user-images.githubusercontent.com/71999020/218147006-11b5fa20-d812-4e3d-9e18-20864ee3b080.mp4
 
+## DNA LOADER:
+
+
+https://user-images.githubusercontent.com/71999020/219070141-ae025de7-d61e-4b0f-a288-4e9d23966d46.mp4
+
+

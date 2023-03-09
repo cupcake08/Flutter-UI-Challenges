@@ -1,4 +1,4 @@
-# Mobile UI Chanllenges
+# Mobile UI Challenges
 
 ## Infinite Symbol Animation
 ![infinite_symbol_loader-2023-03-08_15 51 40](https://user-images.githubusercontent.com/108711388/223961089-748a8302-695d-43e9-9335-801b4641d7d0.gif)

@@ -137,7 +137,7 @@ class _InfiniteAnimationState extends State<InfiniteAnimation> with TickerProvid
     super.initState();
 
     _controllers = List.generate(4, (index) {
-      final duration = Duration(seconds: ((index + 1) * 1.5.toInt()));
+      final duration = Duration(seconds: ((index + 1) * 1.5).toInt());
       "speed: ${duration.inSeconds}".log();
       final AnimationController controller = AnimationController(
         vsync: this,

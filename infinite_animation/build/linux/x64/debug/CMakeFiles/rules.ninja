@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = /usr/bin/cmake --regenerate-during-build -S/home/ankit/DEV/flutter_create/infinite_animation/linux -B/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug
+  command = /usr/bin/cmake --regenerate-during-build -S/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/linux -B/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug
   description = Re-running CMake...
   generator = 1
 

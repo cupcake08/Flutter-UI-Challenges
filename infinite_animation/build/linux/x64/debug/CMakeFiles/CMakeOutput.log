@@ -10,12 +10,12 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is Clang, found in "/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/3.25.2/CompilerIdCXX/a.out"
+The CXX compiler identification is Clang, found in "/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/3.25.2/CompilerIdCXX/a.out"
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C
+Change Dir: /home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY
 
-Run Build Command(s):/usr/bin/ninja cmTC_5512b && [1/2] Building CXX object CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o
+Run Build Command(s):/usr/bin/ninja cmTC_89241 && [1/2] Building CXX object CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o
 clang version 15.0.7
 Target: x86_64-pc-linux-gnu
 Thread model: posix
@@ -27,7 +27,7 @@ Candidate multilib: .;@m64
 Candidate multilib: 32;@m32
 Selected multilib: .;@m64
  (in-process)
- "/usr/bin/clang-15" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C -resource-dir /usr/lib/clang/15.0.7 -dependency-file CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/backward -internal-isystem /usr/lib/clang/15.0.7/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+ "/usr/bin/clang-15" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY -resource-dir /usr/lib/clang/15.0.7 -dependency-file CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/backward -internal-isystem /usr/lib/clang/15.0.7/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
 clang -cc1 version 15.0.7 based upon LLVM 15.0.7 default target x86_64-pc-linux-gnu
 ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include"
 ignoring nonexistent directory "/include"
@@ -40,7 +40,7 @@ ignoring nonexistent directory "/include"
  /usr/local/include
  /usr/include
 End of search list.
-[2/2] Linking CXX executable cmTC_5512b
+[2/2] Linking CXX executable cmTC_89241
 clang version 15.0.7
 Target: x86_64-pc-linux-gnu
 Thread model: posix
@@ -51,7 +51,7 @@ Selected GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1
 Candidate multilib: .;@m64
 Candidate multilib: 32;@m32
 Selected multilib: .;@m64
- "/usr/bin/ld" -pie --build-id --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_5512b /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crtn.o
+ "/usr/bin/ld" -pie --build-id --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_89241 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crtn.o
 
 
 
@@ -76,9 +76,9 @@ Parsed CXX implicit include dir info from above output: rv=done
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C]
+  ignore line: [Change Dir: /home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY]
   ignore line: []
-  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_5512b && [1/2] Building CXX object CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [Run Build Command(s):/usr/bin/ninja cmTC_89241 && [1/2] Building CXX object CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o]
   ignore line: [clang version 15.0.7]
   ignore line: [Target: x86_64-pc-linux-gnu]
   ignore line: [Thread model: posix]
@@ -93,7 +93,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [Selected multilib: .]
   ignore line: [@m64]
   ignore line: [ (in-process)]
-  ignore line: [ "/usr/bin/clang-15" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C -resource-dir /usr/lib/clang/15.0.7 -dependency-file CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/backward -internal-isystem /usr/lib/clang/15.0.7/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/ankit/DEV/flutter_create/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-I4nb0C -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [ "/usr/bin/clang-15" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -mrelax-all --mrelax-relocations -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY -resource-dir /usr/lib/clang/15.0.7 -dependency-file CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../include/c++/12.2.1/backward -internal-isystem /usr/lib/clang/15.0.7/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/ankit/DEV/flutter_create/Flutter-UI-Challenges/infinite_animation/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-rkHFGY -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
   ignore line: [clang -cc1 version 15.0.7 based upon LLVM 15.0.7 default target x86_64-pc-linux-gnu]
   ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../x86_64-pc-linux-gnu/include"]
   ignore line: [ignoring nonexistent directory "/include"]
@@ -106,7 +106,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [ /usr/local/include]
   ignore line: [ /usr/include]
   ignore line: [End of search list.]
-  ignore line: [[2/2] Linking CXX executable cmTC_5512b]
+  ignore line: [[2/2] Linking CXX executable cmTC_89241]
   ignore line: [clang version 15.0.7]
   ignore line: [Target: x86_64-pc-linux-gnu]
   ignore line: [Thread model: posix]
@@ -120,7 +120,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m64]
-  link line: [ "/usr/bin/ld" -pie --build-id --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_5512b /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crtn.o]
+  link line: [ "/usr/bin/ld" -pie --build-id --eh-frame-hdr -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_89241 /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crtn.o]
     arg [/usr/bin/ld] ==> ignore
     arg [-pie] ==> ignore
     arg [--build-id] ==> ignore
@@ -130,7 +130,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_5512b] ==> ignore
+    arg [cmTC_89241] ==> ignore
     arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/Scrt1.o]
     arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/../../../../lib64/crti.o]
     arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/12.2.1/crtbeginS.o]
@@ -140,7 +140,7 @@ Parsed CXX implicit link information from above output:
     arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
     arg [-L/lib] ==> dir [/lib]
     arg [-L/usr/lib] ==> dir [/usr/lib]
-    arg [CMakeFiles/cmTC_5512b.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_89241.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc_s] ==> lib [gcc_s]

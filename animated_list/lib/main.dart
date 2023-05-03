@@ -1,12 +1,9 @@
 import 'package:animated_list/animated_list.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as dev show log;
 
 void main() {
   runApp(const MyApp());
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);

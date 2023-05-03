@@ -13,7 +13,7 @@ class _CustomAnimatedListState extends State<CustomAnimatedList> {
 
   final List<Widget> _items = [];
 
-  ValueNotifier<double> _progress = ValueNotifier(0.0);
+  final ValueNotifier<double> _progress = ValueNotifier(0.0);
 
   void _addItem() {
     _items.add(_item());
@@ -170,8 +170,7 @@ class _CustomAnimatedListState extends State<CustomAnimatedList> {
             _removeItem(_items.length - 1);
             // _items.removeLast();
           },
-          style: ElevatedButton.styleFrom(
-              minimumSize: Size(MediaQuery.of(context).size.width, 40), backgroundColor: Colors.blueGrey),
+          style: ElevatedButton.styleFrom(minimumSize: Size(MediaQuery.of(context).size.width, 40), backgroundColor: Colors.blueGrey),
           child: const Text("Remove Item"),
         ),
         Expanded(

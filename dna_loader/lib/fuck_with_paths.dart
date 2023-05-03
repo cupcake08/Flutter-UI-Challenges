@@ -144,28 +144,28 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
         // we need 3 rectangles
 
         _buildLowerTransformRed(Vector3(0.0, 0.0, -65.0), 6 * distGap, Colors.red),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, -45.0), 5 * distGap, Color.fromARGB(255, 244, 67, 54)),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, -25.0), 4 * distGap, Color.fromARGB(255, 197, 69, 46)),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 188, 60, 18)),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 25.0), 2 * distGap, Color.fromARGB(255, 196, 149, 67)),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 45.0), 1 * distGap, Color.fromARGB(255, 195, 214, 54)),
-        _buildLowerTransformRed(Vector3(0.0, 0.0, 65.0), 0 * distGap, Color.fromARGB(255, 202, 215, 100)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -45.0), 5 * distGap, const Color.fromARGB(255, 244, 67, 54)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, -25.0), 4 * distGap, const Color.fromARGB(255, 197, 69, 46)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 0.0), 3 * distGap, const Color.fromARGB(255, 188, 60, 18)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 25.0), 2 * distGap, const Color.fromARGB(255, 196, 149, 67)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 45.0), 1 * distGap, const Color.fromARGB(255, 195, 214, 54)),
+        _buildLowerTransformRed(Vector3(0.0, 0.0, 65.0), 0 * distGap, const Color.fromARGB(255, 202, 215, 100)),
 
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -65.0), 0 * distGap, Color.fromARGB(255, 187, 33, 243)),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -45.0), 1 * distGap, Color.fromARGB(255, 209, 45, 224)),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, -25.0), 2 * distGap, Color.fromARGB(255, 139, 40, 238)),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 120, 36, 230)),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 25.0), 4 * distGap, Color.fromARGB(255, 33, 90, 240)),
-        _buildLowerTransformBlue(Vector3(0.0, 0.0, 45.0), 5 * distGap, Color.fromARGB(255, 33, 107, 240)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -65.0), 0 * distGap, const Color.fromARGB(255, 187, 33, 243)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -45.0), 1 * distGap, const Color.fromARGB(255, 209, 45, 224)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, -25.0), 2 * distGap, const Color.fromARGB(255, 139, 40, 238)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 0.0), 3 * distGap, const Color.fromARGB(255, 120, 36, 230)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 25.0), 4 * distGap, const Color.fromARGB(255, 33, 90, 240)),
+        _buildLowerTransformBlue(Vector3(0.0, 0.0, 45.0), 5 * distGap, const Color.fromARGB(255, 33, 107, 240)),
         _buildLowerTransformBlue(Vector3(0.0, 0.0, 65.0), 6 * distGap, Colors.blue),
 
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -65.0), 6 * distGap, Color.fromARGB(255, 111, 220, 115)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -45.0), 5 * distGap, Color.fromARGB(255, 76, 175, 107)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, -25.0), 4 * distGap, Color.fromARGB(255, 76, 175, 112)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 0.0), 3 * distGap, Color.fromARGB(255, 76, 175, 140)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 25.0), 2 * distGap, Color.fromARGB(255, 76, 175, 147)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 45.0), 1 * distGap, Color.fromARGB(255, 76, 175, 168)),
-        _buildLowerTransformOrange(Vector3(0.0, 0.0, 65.0), 0 * distGap, Color.fromARGB(255, 40, 192, 200)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -65.0), 6 * distGap, const Color.fromARGB(255, 111, 220, 115)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -45.0), 5 * distGap, const Color.fromARGB(255, 76, 175, 107)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, -25.0), 4 * distGap, const Color.fromARGB(255, 76, 175, 112)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 0.0), 3 * distGap, const Color.fromARGB(255, 76, 175, 140)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 25.0), 2 * distGap, const Color.fromARGB(255, 76, 175, 147)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 45.0), 1 * distGap, const Color.fromARGB(255, 76, 175, 168)),
+        _buildLowerTransformOrange(Vector3(0.0, 0.0, 65.0), 0 * distGap, const Color.fromARGB(255, 40, 192, 200)),
       ],
     );
   }
@@ -177,7 +177,7 @@ class _PathFuckAroundState extends State<PathFuckAround> with SingleTickerProvid
     required Vector3 translate,
     required Alignment alignemtAxis,
   }) {
-    return Container(
+    return SizedBox(
       height: 200,
       width: 200,
       child: CustomPaint(

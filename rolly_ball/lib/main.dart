@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rolly_ball/custom_painters.dart';
 import 'package:rolly_ball/extensions.dart';
-import 'dart:math' as math show pi;
 
 void main() => runApp(const MyApp());
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math show pi, min;
+import 'dart:math' as math show pi, min, cos, sin;
 
 import 'package:rolly_ball/extensions.dart';
 
@@ -61,12 +61,9 @@ class InnerCircle extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
+    final majorRadius = math.min(w, h) / 2 * .5;
+    final minorRadius = majorRadius / 5;
     final center = Offset(w / 2, h / 2);
-    final radius = math.min(w, h) / 2 * .5;
-    final rect = Rect.fromCircle(center: center, radius: radius);
-    final path = Path();
-    final r1 = Rect.fromLTWH(rect.left, rect.top, rect.width, rect.height * .3);
-    canvas.drawArc(r1, math.pi, math.pi, false, _paint);
   }
 
   @override

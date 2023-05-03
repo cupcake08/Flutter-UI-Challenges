@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rolly_ball/custom_painters.dart';
 import 'package:rolly_ball/extensions.dart';
+import 'dart:math' as math show pi;
 
 void main() => runApp(const MyApp());
 
@@ -35,32 +36,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late double _shift;
+  // late double _shift;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      painter: OuterCircle(_shift),
-      child: MouseRegion(
-        onHover: (event) {
-          // final x = event.localPosition.dx;
-          // final y = event.localPosition.dy;
-          // "x: $x, y: $y".log();
-          // final w = context.width;
-          // final h = context.height;
-          // final center = Offset(w / 2, h / 2);
-          // final dx = x - center.dx;
-          // final dy = y - center.dy;
-          // final angle = math.atan2(dy, dx);
-          // final shift = angle / (2 * math.pi);
-          // "angle: $angle, shift: $shift".log();
-          // setState(() {
-          //   _shift = shift;
-          // });
-        },
-        child: SizedBox(
-          height: context.height,
-          width: context.width,
+      painter: OuterCircle(.3),
+      child: SizedBox(
+        height: context.height,
+        width: context.width,
+        child: MouseRegion(
           child: CustomPaint(
             painter: InnerCircle(),
           ),

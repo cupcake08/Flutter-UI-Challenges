@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_app/extensions.dart';
 import 'package:movie_app/hero.dart';
 import 'package:movie_app/hero_detail_screen.dart';
+import 'package:movie_app/parallex.dart';
 
 class MarvelScreen extends StatefulWidget {
   const MarvelScreen({super.key});
@@ -13,11 +14,28 @@ class MarvelScreen extends StatefulWidget {
 
 class _MarvelScreenState extends State<MarvelScreen> {
   late final CarouselController _carouselController;
+  late final List<ValueNotifier<double>> notifiers;
 
   @override
   void initState() {
     super.initState();
+    notifiers = List.generate(
+      heroes.length,
+      (index) => ValueNotifier<double>(0.0),
+    );
+    int middle = notifiers.length ~/ 2;
+    notifiers[middle].value = 0.5;
+    notifiers[middle - 1].value = 0.0;
+    notifiers[middle + 1].value = 1.0;
     _carouselController = CarouselController();
+  }
+
+  @override
+  void dispose() {
+    for (final notifier in notifiers) {
+      notifier.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -43,10 +61,21 @@ class _MarvelScreenState extends State<MarvelScreen> {
           Expanded(
             child: CarouselSlider(
               carouselController: _carouselController,
-              items: heroes.map((e) => _buildCard(e)).toList(),
+              items: heroes.map((e) {
+                final index = heroes.indexOf(e);
+                return _buildCard(e, index);
+              }).toList(),
               options: CarouselOptions(
                 initialPage: heroes.length ~/ 2,
                 aspectRatio: .8,
+                onScrolled: (value) {
+                  final idx = value!.floor();
+                  if (idx > 0) notifiers[idx - 1].value = idx - value;
+                  if (idx < heroes.length - 1) notifiers[idx + 1].value = value - idx;
+                  notifiers[idx].value = value - idx;
+                },
+                enableInfiniteScroll: false,
+                onPageChanged: (index, reason) {},
                 viewportFraction: .85,
                 enlargeCenterPage: true,
                 enlargeFactor: .15,
@@ -60,19 +89,9 @@ class _MarvelScreenState extends State<MarvelScreen> {
     );
   }
 
-  Widget _buildCard(MHero hero) {
+  Widget _buildCard(MHero hero, int index) {
     return Stack(
       children: [
-        Align(
-          alignment: Alignment.center,
-          child: Hero(
-            tag: "check${hero.id}",
-            child: ColoredBox(
-              color: hero.color,
-              child: const SizedBox.shrink(),
-            ),
-          ),
-        ),
         InkWell(
           onTap: () => Navigator.push(
             context,
@@ -81,72 +100,73 @@ class _MarvelScreenState extends State<MarvelScreen> {
               transitionDuration: const Duration(milliseconds: 500),
             ),
           ),
-          child: Card(
-            color: hero.color,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.center,
-                    child: Hero(
-                      tag: "background${hero.id}",
+          child: Hero(
+            tag: "heroT${hero.id}",
+            child: Card(
+              color: hero.color,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.center,
                       child: Image(
                         image: hero.backGroundImage,
                         fit: BoxFit.cover,
                         height: context.height * .25,
-                        // color: Colors.white,
+                        color: Colors.white,
                       ),
                     ),
-                  ),
-                  Hero(
-                    tag: "name${hero.id}",
-                    child: Text(
+                    Text(
                       hero.name,
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                     ),
-                  ),
-                  Hero(
-                    tag: "heroName${hero.id}",
-                    child: Text(
+                    Text(
                       hero.heroName,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
                     ),
-                  ),
-                  const Spacer(),
-                  Hero(
-                    tag: "description${hero.id}",
-                    child: Text(
+                    const Spacer(),
+                    Text(
                       hero.description,
                       maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium!.copyWith(color: Colors.white),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.arrow_upward_rounded),
-                      color: Colors.white,
+                    Align(
+                      alignment: Alignment.center,
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.arrow_upward_rounded),
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
         ),
-        Container(
-          transform: Matrix4.translationValues(0, -context.height * .09, 0),
-          height: context.height * .3,
-          width: context.width,
-          child: Hero(
-            tag: "hero${hero.id}",
-            child: Image(image: hero.image),
-          ),
-        ),
+        ValueListenableBuilder(
+            valueListenable: notifiers[index],
+            builder: (context, value, _) {
+              value.log();
+              return Container(
+                transform: Matrix4.translationValues(0.0, -context.height * .09, 0),
+                height: context.height * .3,
+                width: context.width,
+                child: Hero(
+                  tag: "hero${hero.id}",
+                  child: Flow(
+                    delegate: ParallexFlowDelegate(0.0),
+                    children: [
+                      Image(image: hero.image),
+                    ],
+                  ),
+                ),
+              );
+            }),
       ],
     );
   }

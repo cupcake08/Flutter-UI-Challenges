@@ -19,8 +19,8 @@ class MHero {
 }
 
 List<String> descriptions = [
-  "Spider-Man is a superhero with spider-like abilities, including superhuman strength, agility, and reflexes, as well as the ability to climb walls and shoot webs from devices he designed himself. Spider-Man is also known for his 'spidey sense,' which alerts him to danger.",
-  "Iron Man is a superhero with a high-tech suit of armor that gives him superhuman strength, durability, and the ability to fly. The suit also features an array of powerful weapons and gadgets, as well as advanced computer systems that assist Iron Man in battle.",
+  "Spider-Man is a superhero with spider-like abilities, including superhuman strength, agility, and reflexes, as well as the ability to climb walls and shoot webs from devices he designed himself.",
+  "Iron Man is a superhero with a high-tech suit of armor that gives him superhuman strength, durability, and the ability to fly. The suit also features an array of powerful weapons and gadgets",
   "Captain America is a superhero with enhanced strength, agility, endurance, and reflexes. He is also a master tactician and skilled hand-to-hand combatant. Captain America is most well-known for his indestructible shield, which he uses both defensively and offensively in combat.",
 ];
 

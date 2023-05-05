@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:movie_app/extensions.dart';
 import 'package:movie_app/hero.dart';
 import 'package:movie_app/hero_detail_screen.dart';
@@ -13,29 +12,30 @@ class MarvelScreen extends StatefulWidget {
   State<MarvelScreen> createState() => _MarvelScreenState();
 }
 
-enum CarouselScrollDirection {
-  left,
-  right,
-}
-
 class _MarvelScreenState extends State<MarvelScreen> {
-  late final CarouselController _carouselController;
   late final List<ValueNotifier<double>> notifiers;
+
+  int _currentPage = 0;
+  late final ValueNotifier<Size> giveMeSize;
+  final GlobalKey cardKey = GlobalKey();
+  late final List<GlobalKey> globalKeys;
 
   @override
   void initState() {
     super.initState();
+    giveMeSize = ValueNotifier(Size.zero);
     notifiers = List.generate(
       heroes.length,
       (index) => ValueNotifier<double>(0.0),
     );
+    globalKeys = List.generate(heroes.length, (index) => GlobalKey());
     int middle = notifiers.length ~/ 2;
+    _currentPage = middle;
     notifiers[middle].value = 0.0;
-    notifiers[middle - 1].value = -0.5;
-    for (int i = middle + 1; i < notifiers.length; i++) {
-      notifiers[i].value = 0.5;
-    }
-    _carouselController = CarouselController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final renderBox = globalKeys[middle].currentContext!.findRenderObject() as RenderBox;
+      giveMeSize.value = renderBox.size;
+    });
   }
 
   @override
@@ -43,6 +43,7 @@ class _MarvelScreenState extends State<MarvelScreen> {
     for (final notifier in notifiers) {
       notifier.dispose();
     }
+    giveMeSize.dispose();
     super.dispose();
   }
 
@@ -68,7 +69,6 @@ class _MarvelScreenState extends State<MarvelScreen> {
           ),
           Expanded(
             child: CarouselSlider(
-              carouselController: _carouselController,
               items: heroes.map((e) {
                 final index = heroes.indexOf(e);
                 return _buildCard(e, index);
@@ -76,24 +76,15 @@ class _MarvelScreenState extends State<MarvelScreen> {
               options: CarouselOptions(
                 initialPage: heroes.length ~/ 2,
                 aspectRatio: .8,
-                onScrolled: (value) {
-                  final delta = value! % 1.0;
-                  final currIdx = value.floor();
-                  "currIndex: $currIdx".log();
-                  // final direction = delta > .5 ?
-                  if (currIdx > 0) notifiers[currIdx - 1].value = -delta.clamp(0.0, 0.5);
-                  notifiers[currIdx].value = delta.clamp(0.0, 0.5);
-                  if (currIdx < notifiers.length - 1) notifiers[currIdx + 1].value = delta.clamp(0.0, 0.5);
-                },
+                onScrolled: (value) => notifiers[_currentPage].value = _currentPage - value!,
                 enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
-                  index.log();
+                  _currentPage = index;
                 },
                 viewportFraction: .85,
                 enlargeCenterPage: true,
-                enlargeFactor: .15,
+                enlargeFactor: .2,
                 height: context.height * .6,
-                enlargeStrategy: CenterPageEnlargeStrategy.scale,
               ),
             ),
           ),
@@ -102,45 +93,84 @@ class _MarvelScreenState extends State<MarvelScreen> {
     );
   }
 
+  // _showBottomSheet(MHero hero) {
+  //   showCupertinoModalPopup(
+  //     context: context,
+  //     builder: (context) {
+  //       return DraggableScrollableSheet(
+  //         maxChildSize: 0.55,
+  //         minChildSize: 0.25,
+  //         initialChildSize: 0.25,
+  //         expand: false,
+  //         snap: true,
+  //         builder: (context, scrollController) {
+  //           return Container(
+  //             decoration: const BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+  //             ),
+  //             padding: const EdgeInsets.only(top: 30),
+  //             child: SingleChildScrollView(
+  //               child: Column(
+  //                 mainAxisSize: MainAxisSize.min,
+  //                 children: [
+  //                   _subWidget(false, "latest news", hero),
+  //                   const SizedBox(height: 20),
+  //                   _subWidget(true, "related movies", hero),
+  //                 ],
+  //               ),
+  //             ),
+  //           );
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
+
   Widget _buildCard(MHero hero, int index) {
     return Stack(
       children: [
-        // Align(
-        //   alignment: Alignment.center,
-        //   child: Hero(
-        //     tag: "backColor${hero.id}",
-        //     flightShuttleBuilder: (
-        //       flightContext,
-        //       animation,
-        //       flightDirection,
-        //       fromHeroContext,
-        //       toHeroContext,
-        //     ) {
-        //       return Container(
-        //         decoration: BoxDecoration(
-        //           color: Colors.redAccent,
-        //           borderRadius: BorderRadius.circular(20),
-        //         ),
-        //         height: fromHeroContext.height,
-        //         width: fromHeroContext.width,
-        //       );
-        //     },
-        //     child: Card(
-        //       shape: RoundedRectangleBorder(
-        //         borderRadius: BorderRadius.circular(20),
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        InkWell(
-          onTap: () => Navigator.push(
+        Align(
+          alignment: Alignment.center,
+          child: ValueListenableBuilder(
+            valueListenable: giveMeSize,
+            builder: (context, value, _) {
+              if (value > Size.zero) {
+                return Hero(
+                  tag: "backColor${hero.id}",
+                  child: Card(
+                    color: hero.color,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    margin: const EdgeInsets.all(0),
+                    child: SizedBox(
+                      height: value.height,
+                      width: value.width,
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ),
+        GestureDetector(
+          onVerticalDragStart: (details) => Navigator.push(
             context,
             PageRouteBuilder(
               pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
               transitionDuration: const Duration(milliseconds: 500),
             ),
           ),
-          child: _helper(hero),
+          onTap: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
+                transitionDuration: const Duration(milliseconds: 4000),
+              ),
+            );
+          },
+          child: _helper(hero, index),
         ),
         Container(
           transform: Matrix4.translationValues(0.0, -context.height * .09, 0),
@@ -160,9 +190,10 @@ class _MarvelScreenState extends State<MarvelScreen> {
     );
   }
 
-  _helper(MHero hero) {
+  _helper(MHero hero, int index) {
     return Material(
       child: Container(
+        key: globalKeys[index],
         decoration: BoxDecoration(
           color: hero.color,
           borderRadius: BorderRadius.circular(20),
@@ -174,7 +205,6 @@ class _MarvelScreenState extends State<MarvelScreen> {
             children: [
               Container(
                 alignment: Alignment.center,
-                transform: Matrix4.translationValues(0, 0, 0),
                 child: Hero(
                   tag: "background${hero.id}",
                   child: Image(

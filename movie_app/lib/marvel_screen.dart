@@ -93,39 +93,21 @@ class _MarvelScreenState extends State<MarvelScreen> {
     );
   }
 
-  // _showBottomSheet(MHero hero) {
-  //   showCupertinoModalPopup(
-  //     context: context,
-  //     builder: (context) {
-  //       return DraggableScrollableSheet(
-  //         maxChildSize: 0.55,
-  //         minChildSize: 0.25,
-  //         initialChildSize: 0.25,
-  //         expand: false,
-  //         snap: true,
-  //         builder: (context, scrollController) {
-  //           return Container(
-  //             decoration: const BoxDecoration(
-  //               color: Colors.white,
-  //               borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-  //             ),
-  //             padding: const EdgeInsets.only(top: 30),
-  //             child: SingleChildScrollView(
-  //               child: Column(
-  //                 mainAxisSize: MainAxisSize.min,
-  //                 children: [
-  //                   _subWidget(false, "latest news", hero),
-  //                   const SizedBox(height: 20),
-  //                   _subWidget(true, "related movies", hero),
-  //                 ],
-  //               ),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
+  _navigateToAnotherScreen(MHero hero) {
+    return Navigator.push(
+      context,
+      PageRouteBuilder(
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+    );
+  }
 
   Widget _buildCard(MHero hero, int index) {
     return Stack(
@@ -154,22 +136,8 @@ class _MarvelScreenState extends State<MarvelScreen> {
           ),
         ),
         GestureDetector(
-          onVerticalDragStart: (details) => Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
-              transitionDuration: const Duration(milliseconds: 500),
-            ),
-          ),
-          onTap: () {
-            Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
-                transitionDuration: const Duration(milliseconds: 4000),
-              ),
-            );
-          },
+          onVerticalDragStart: (details) => _navigateToAnotherScreen(hero),
+          onTap: () => _navigateToAnotherScreen(hero),
           child: _helper(hero, index),
         ),
         Container(

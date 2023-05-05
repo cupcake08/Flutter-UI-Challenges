@@ -18,39 +18,36 @@ mixin OverlayMixin<T extends StatefulWidget> on State<T> {
   }
 
   Widget _widget() {
-    return Hero(
-      tag: "bigb",
-      child: SlidingUpPanel(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-        snapPoint: 0.6,
-        controller: panelController,
-        margin: const EdgeInsets.only(top: 20),
-        minHeight: context.height * .1,
-        maxHeight: context.height * .6,
-        defaultPanelState: PanelState.CLOSED,
-        panelBuilder: (sc) {
-          return Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(15),
-              ),
+    return SlidingUpPanel(
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+      snapPoint: 0.6,
+      controller: panelController,
+      margin: const EdgeInsets.only(top: 20),
+      minHeight: context.height * .05,
+      maxHeight: context.height * .6,
+      defaultPanelState: PanelState.CLOSED,
+      panelBuilder: (sc) {
+        return Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(15),
             ),
-            padding: const EdgeInsets.only(top: 30),
-            child: SingleChildScrollView(
-              controller: sc,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _subWidget(false, "latest news"),
-                  const SizedBox(height: 20),
-                  _subWidget(true, "related movies"),
-                ],
-              ),
+          ),
+          padding: const EdgeInsets.only(top: 30),
+          child: SingleChildScrollView(
+            controller: sc,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _subWidget(false, "latest news"),
+                const SizedBox(height: 20),
+                _subWidget(true, "related movies"),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

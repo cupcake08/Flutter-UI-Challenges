@@ -23,7 +23,7 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin {
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => panelController.animatePanelToPosition(
           .3,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 200),
         ),
       );
     });

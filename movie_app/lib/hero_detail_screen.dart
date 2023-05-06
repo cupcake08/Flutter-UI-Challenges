@@ -13,25 +13,33 @@ class HeroDetailScreen extends StatefulWidget {
   State<HeroDetailScreen> createState() => _HeroDetailScreenState();
 }
 
-class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin {
+class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin, SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
     setHero = widget.hero;
+    animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       insertOverlay();
-      WidgetsBinding.instance.addPostFrameCallback(
-        (_) => panelController.animatePanelToPosition(
-          .3,
-          duration: const Duration(milliseconds: 200),
-        ),
-      );
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        panelController.animatePanelToSnapPoint(
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeOutBack,
+        );
+        animationController.forward();
+      });
     });
   }
 
-  @override
-  void dispose() async {
-    super.dispose();
+  _navigateBack() async {
+    removeOverlay();
+    Timer(const Duration(milliseconds: 50), () {
+      Navigator.pop(context);
+    });
   }
 
   @override
@@ -42,13 +50,7 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin {
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
         leading: IconButton(
-          onPressed: () async {
-            removeOverlay();
-            Timer(const Duration(milliseconds: 50), () {
-              Navigator.pop(context);
-            });
-            // if (mounted) {}
-          },
+          onPressed: _navigateBack,
           icon: const Icon(Icons.arrow_back_ios_new_rounded),
         ),
       ),
@@ -107,16 +109,16 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin {
             tag: "hero${widget.hero.id}",
             child: Text(
               widget.hero.name,
-              style:
-                  Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+              maxLines: 2,
+              overflow: TextOverflow.fade,
+              style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),
           Hero(
             tag: "name${widget.hero.id}",
             child: Text(
               widget.hero.heroName,
-              style:
-                  Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
             ),
           ),
           const SizedBox(height: 30),

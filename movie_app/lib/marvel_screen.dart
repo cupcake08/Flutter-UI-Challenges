@@ -14,10 +14,8 @@ class MarvelScreen extends StatefulWidget {
 
 class _MarvelScreenState extends State<MarvelScreen> {
   late final List<ValueNotifier<double>> notifiers;
-
   int _currentPage = 0;
   late final ValueNotifier<Size> giveMeSize;
-  final GlobalKey cardKey = GlobalKey();
   late final List<GlobalKey> globalKeys;
 
   @override
@@ -26,9 +24,9 @@ class _MarvelScreenState extends State<MarvelScreen> {
     giveMeSize = ValueNotifier(Size.zero);
     notifiers = List.generate(
       heroes.length,
-      (index) => ValueNotifier<double>(0.0),
+      (_) => ValueNotifier<double>(0.0),
     );
-    globalKeys = List.generate(heroes.length, (index) => GlobalKey());
+    globalKeys = List.generate(heroes.length, (_) => GlobalKey());
     int middle = notifiers.length ~/ 2;
     _currentPage = middle;
     notifiers[middle].value = 0.0;
@@ -78,7 +76,7 @@ class _MarvelScreenState extends State<MarvelScreen> {
                 aspectRatio: .8,
                 onScrolled: (value) => notifiers[_currentPage].value = _currentPage - value!,
                 enableInfiniteScroll: false,
-                onPageChanged: (index, reason) {
+                onPageChanged: (index, _) {
                   _currentPage = index;
                 },
                 viewportFraction: .85,
@@ -97,13 +95,13 @@ class _MarvelScreenState extends State<MarvelScreen> {
     return Navigator.push(
       context,
       PageRouteBuilder(
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(
             opacity: animation,
             child: child,
           );
         },
-        pageBuilder: (context, _, __) => HeroDetailScreen(hero: hero),
+        pageBuilder: (___, _, __) => HeroDetailScreen(hero: hero),
         transitionDuration: const Duration(milliseconds: 500),
       ),
     );
@@ -116,7 +114,7 @@ class _MarvelScreenState extends State<MarvelScreen> {
           alignment: Alignment.center,
           child: ValueListenableBuilder(
             valueListenable: giveMeSize,
-            builder: (context, value, _) {
+            builder: (_, value, __) {
               if (value > Size.zero) {
                 return Hero(
                   tag: "backColor${hero.id}",
@@ -136,7 +134,7 @@ class _MarvelScreenState extends State<MarvelScreen> {
           ),
         ),
         GestureDetector(
-          onVerticalDragStart: (details) => _navigateToAnotherScreen(hero),
+          onVerticalDragStart: (_) => _navigateToAnotherScreen(hero),
           onTap: () => _navigateToAnotherScreen(hero),
           child: _helper(hero, index),
         ),
@@ -179,28 +177,24 @@ class _MarvelScreenState extends State<MarvelScreen> {
                     image: hero.backGroundImage,
                     fit: BoxFit.cover,
                     height: context.height * .25,
-                    color: Colors.white,
+                    color: hero.name == "Captain-America" ? null : Colors.white,
                   ),
                 ),
               ),
-              Hero(
-                tag: "hero${hero.id}",
-                child: Text(
-                  hero.name,
-                  style: Theme.of(context)
-                      .textTheme
-                      .displaySmall!
-                      .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+              FittedBox(
+                child: Hero(
+                  tag: "hero${hero.id}",
+                  child: Text(
+                    hero.name,
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
                 ),
               ),
               Hero(
                 tag: "name${hero.id}",
                 child: Text(
                   hero.heroName,
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge!
-                      .copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
+                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
                 ),
               ),
               const Spacer(),
@@ -240,8 +234,7 @@ class _MarvelScreenState extends State<MarvelScreen> {
           ),
           Text(
             "Super Hero",
-            style:
-                Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.grey[700]),
+            style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.grey[700]),
           ),
         ],
       ),

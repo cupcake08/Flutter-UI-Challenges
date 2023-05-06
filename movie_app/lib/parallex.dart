@@ -8,7 +8,7 @@ class ParallexFlowDelegate extends FlowDelegate {
   void paintChildren(FlowPaintingContext context) {
     context.paintChild(
       0,
-      transform: Matrix4.translationValues(100 * offset.value, 0, 0.0),
+      transform: Matrix4.translationValues(120 * offset.value, 0, 0.0),
     );
   }
 

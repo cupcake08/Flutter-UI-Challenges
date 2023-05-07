@@ -1,5 +1,9 @@
 # Mobile UI Challenges
 
+## Movie Hero App
+
+https://user-images.githubusercontent.com/71999020/236679085-e3ea6b2c-a72a-4e92-9fb5-dbf5a2a9d0e6.mp4
+
 ## Infinite Symbol Animation
 ![infinite_symbol_loader-2023-03-08_15 51 40](https://user-images.githubusercontent.com/108711388/223961089-748a8302-695d-43e9-9335-801b4641d7d0.gif)
 

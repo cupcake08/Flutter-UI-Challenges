@@ -26,7 +26,8 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin, 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       insertOverlay();
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        panelController.animatePanelToSnapPoint(
+        draggableScrollableController.animateTo(
+          .25,
           duration: const Duration(milliseconds: 500),
           curve: Curves.easeOutBack,
         );
@@ -44,43 +45,47 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin, 
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        leading: IconButton(
-          onPressed: _navigateBack,
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          leading: IconButton(
+            onPressed: _navigateBack,
+            icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          ),
         ),
-      ),
-      body: Stack(
-        children: [
-          Hero(
-            tag: "backColor${widget.hero.id}",
-            child: Card(
-              color: widget.hero.color,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              margin: const EdgeInsets.all(0),
-              child: SizedBox(
-                height: context.height,
-                width: context.width,
+        body: Stack(
+          children: [
+            Hero(
+              tag: "backColor${widget.hero.id}",
+              child: Card(
+                color: widget.hero.color,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                margin: const EdgeInsets.all(0),
+                child: SizedBox(
+                  height: context.height,
+                  width: context.width,
+                ),
               ),
             ),
-          ),
-          _buildHeader(),
-          Container(
-            height: context.height * .35,
-            width: context.width,
-            alignment: Alignment.topCenter,
-            transform: Matrix4.translationValues(0.0, kToolbarHeight, 0.0),
-            child: Hero(
-              tag: "heroT${widget.hero.id}",
-              createRectTween: (begin, end) => CustomRectTween(a: begin!, b: end!),
-              child: Image(image: widget.hero.image),
+            _buildHeader(),
+            Container(
+              transform: Matrix4.translationValues(0.0, kToolbarHeight, 0.0),
+              alignment: Alignment.topCenter,
+              child: Hero(
+                tag: "heroT${widget.hero.id}",
+                createRectTween: (begin, end) => CustomRectTween(a: begin!, b: end!),
+                child: Image(
+                  image: widget.hero.image,
+                  height: context.height * .35,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -100,7 +105,7 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin, 
                 image: widget.hero.backGroundImage,
                 fit: BoxFit.cover,
                 height: context.height * .35,
-                color: Colors.white,
+                color: widget.hero.name == "Captain-America" ? null : Colors.white,
               ),
             ),
           ),
@@ -111,14 +116,16 @@ class _HeroDetailScreenState extends State<HeroDetailScreen> with OverlayMixin, 
               widget.hero.name,
               maxLines: 2,
               overflow: TextOverflow.fade,
-              style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+              style:
+                  Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),
           Hero(
             tag: "name${widget.hero.id}",
             child: Text(
               widget.hero.heroName,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
+              style:
+                  Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
             ),
           ),
           const SizedBox(height: 30),
@@ -141,26 +148,17 @@ class CustomRectTween extends RectTween {
   CustomRectTween({
     required this.a,
     required this.b,
-    this.isBack = false,
   }) : super(begin: a, end: b);
   final Rect a, b;
-  final bool isBack;
 
   @override
   Rect? lerp(double t) {
-    // final curve = isBack ? Curves.easeOutBack.transform(t) : Curves.easeInBack.transform(t);
     final curve = Curves.easeInBack.transform(t);
-    // return Rect.fromLTWH(
-    //   lerpDouble(a.left, b.left, t),
-    //   lerpDouble(isBack ? a.top * curve : a.top, isBack ? b.top : b.top * curve, t),
-    //   lerpDouble(a.width, b.width, t),
-    //   lerpDouble(a.height, b.height, t),
-    // );
-    return Rect.fromLTRB(
+    return Rect.fromLTWH(
       lerpDouble(a.left, b.left, t),
       lerpDouble(a.top, b.top * curve, t),
-      lerpDouble(a.right, b.right, t),
-      lerpDouble(a.bottom, b.bottom, t),
+      lerpDouble(a.width, b.width, t),
+      lerpDouble(a.height, b.height, t),
     );
   }
 

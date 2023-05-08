@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:movie_app/extensions.dart';
 import 'package:movie_app/hero.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 mixin OverlayMixin<T extends StatefulWidget> on State<T> {
   OverlayEntry? _overlayEntry;
 
-  final PanelController panelController = PanelController();
+  // final PanelController panelController = PanelController();
+  final DraggableScrollableController draggableScrollableController = DraggableScrollableController();
   late final AnimationController animationController;
   late final MHero _hero;
 
   set setHero(MHero hero) => _hero = hero;
 
   Future<void> removeOverlay() async {
-    await panelController.close();
+    await draggableScrollableController.animateTo(
+      0.0,
+      duration: const Duration(milliseconds: 120),
+      curve: Curves.ease,
+    );
     _overlayEntry?.remove();
     _overlayEntry = null;
   }
@@ -27,31 +31,18 @@ mixin OverlayMixin<T extends StatefulWidget> on State<T> {
   ];
 
   Widget _widget() {
-    return SlidingUpPanel(
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-      snapPoint: 0.3,
-      controller: panelController,
-      margin: const EdgeInsets.only(top: 20),
-      minHeight: context.height * .05,
-      maxHeight: context.height * .6,
-      boxShadow: null,
-      header: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.black26,
-        ),
-        transform: Matrix4.translationValues(context.width / 2.5, 10, 0.0),
-        height: 5,
-        width: context.width * .2,
-      ),
-      defaultPanelState: PanelState.CLOSED,
-      panelBuilder: (sc) {
+    return DraggableScrollableSheet(
+      snap: true,
+      minChildSize: .1,
+      maxChildSize: .6,
+      controller: draggableScrollableController,
+      initialChildSize: .1,
+      snapSizes: const [.25, .6],
+      builder: (context, sc) {
         return Container(
           decoration: const BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(15),
-            ),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
           ),
           padding: const EdgeInsets.only(top: 30),
           child: SingleChildScrollView(

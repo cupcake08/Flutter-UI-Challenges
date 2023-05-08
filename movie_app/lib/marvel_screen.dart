@@ -140,14 +140,16 @@ class _MarvelScreenState extends State<MarvelScreen> {
         ),
         Container(
           transform: Matrix4.translationValues(0.0, -context.height * .09, 0),
-          height: context.height * .35,
           width: context.width,
           child: Flow(
             delegate: ParallexFlowDelegate(notifiers[index]),
             children: [
               Hero(
                 tag: "heroT${hero.id}",
-                child: Image(image: hero.image),
+                child: Image(
+                  image: hero.image,
+                  height: context.height * .35,
+                ),
               ),
             ],
           ),
@@ -186,7 +188,10 @@ class _MarvelScreenState extends State<MarvelScreen> {
                   tag: "hero${hero.id}",
                   child: Text(
                     hero.name,
-                    style: Theme.of(context).textTheme.displaySmall!.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall!
+                        .copyWith(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ),
@@ -194,7 +199,10 @@ class _MarvelScreenState extends State<MarvelScreen> {
                 tag: "name${hero.id}",
                 child: Text(
                   hero.heroName,
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge!
+                      .copyWith(fontWeight: FontWeight.w400, color: Colors.white60),
                 ),
               ),
               const Spacer(),
@@ -234,7 +242,8 @@ class _MarvelScreenState extends State<MarvelScreen> {
           ),
           Text(
             "Super Hero",
-            style: Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.grey[700]),
+            style:
+                Theme.of(context).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w500, color: Colors.grey[700]),
           ),
         ],
       ),

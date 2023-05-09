@@ -33,6 +33,10 @@ class _MarvelScreenState extends State<MarvelScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final renderBox = globalKeys[middle].currentContext!.findRenderObject() as RenderBox;
       giveMeSize.value = renderBox.size;
+      for (int i = 0; i < heroes.length; i++) {
+        if (i == middle) continue;
+        notifiers[i].value = giveMeSize.value.width * .6 * (i < middle ? -1 : 1);
+      }
     });
   }
 

@@ -21,11 +21,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -35,62 +30,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           child: Column(
             children: [
               _header(),
-              TabBar(
-                controller: _tabController,
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.label,
-                labelStyle: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 25,
-                ),
-                unselectedLabelStyle: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey,
-                  fontSize: 20,
-                ),
-                tabs: const [
-                  Tab(
-                    text: "Breakfast",
-                  ),
-                  Tab(
-                    text: "Lunch",
-                  ),
-                  Tab(
-                    text: "Snacks",
-                  ),
-                  Tab(
-                    text: "Dinner",
-                  ),
-                  // Tab(
-                  //   child: Text(
-                  //     'Lunch',
-                  //     style: TextStyle(
-                  //       fontSize: 20,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Tab(
-                  //   child: Text(
-                  //     'Snacks',
-                  //     style: TextStyle(
-                  //       fontSize: 20,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Tab(
-                  //   child: Text(
-                  //     'Dinner',
-                  //     style: TextStyle(
-                  //       fontSize: 20,
-                  //       fontWeight: FontWeight.bold,
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              ),
+              
             ],
           ),
         ),

@@ -1,6 +1,24 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math show pi;
 
+class Ellipse extends CustomPainter {
+  final Paint _paint;
+  Ellipse() : _paint = Paint()..color = Colors.grey;
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.save();
+    final center = Offset(size.width / 2, size.height / 2);
+    final path = Path()..addOval(Rect.fromCenter(center: center, width: size.width, height: size.height));
+    canvas.drawPath(path, _paint);
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
 class OuterCircle extends CustomPainter {
   final Paint _paint, _innerPaint;
   final Paint _strokePaint;

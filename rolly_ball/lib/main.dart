@@ -42,6 +42,13 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _scrollController.addListener(_listener);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent / 3,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+      );
+    });
   }
 
   _listener() {
@@ -70,21 +77,18 @@ class _HomeState extends State<Home> {
         SizedBox(
           height: context.height / 3,
           width: context.width / 2,
-          child: ClipPath(
-            clipper: ShapeBorderClipper(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.height / 2))),
-            child: ListWheelScrollView.useDelegate(
-              controller: _scrollController,
-              itemExtent: 50,
-              squeeze: 1.2,
-              diameterRatio: .8,
-              physics: const BouncingScrollPhysics(),
-              childDelegate: ListWheelInfiniteDelegate(
-                childCount: 15,
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(context.width / 2),
-                    color: Colors.red,
-                  ),
+          child: ListWheelScrollView.useDelegate(
+            controller: _scrollController,
+            itemExtent: 45,
+            squeeze: 1.06,
+            diameterRatio: .7,
+            physics: const BouncingScrollPhysics(),
+            childDelegate: ListWheelInfiniteDelegate(
+              childCount: 15,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),

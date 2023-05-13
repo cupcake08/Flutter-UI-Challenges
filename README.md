@@ -7,6 +7,9 @@ https://user-images.githubusercontent.com/71999020/236679085-e3ea6b2c-a72a-4e92-
 ## Infinite Symbol Animation
 ![infinite_symbol_loader-2023-03-08_15 51 40](https://user-images.githubusercontent.com/108711388/223961089-748a8302-695d-43e9-9335-801b4641d7d0.gif)
 
+## Rolly Ball
+https://github.com/cupcake08/Flutter-UI-Challenges/assets/71999020/831a63cb-491a-4589-80ea-5cb54c99e4c5
+
 ## 3D Cube (In Progress):
 
 https://user-images.githubusercontent.com/71999020/218147006-11b5fa20-d812-4e3d-9e18-20864ee3b080.mp4

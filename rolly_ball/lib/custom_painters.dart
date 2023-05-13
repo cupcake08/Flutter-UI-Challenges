@@ -1,24 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math show pi;
 
-class Ellipse extends CustomPainter {
-  final Paint _paint;
-  Ellipse() : _paint = Paint()..color = Colors.grey;
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.save();
-    final center = Offset(size.width / 2, size.height / 2);
-    final path = Path()..addOval(Rect.fromCenter(center: center, width: size.width, height: size.height));
-    canvas.drawPath(path, _paint);
-    canvas.restore();
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
-  }
-}
-
 class OuterCircle extends CustomPainter {
   final Paint _paint, _innerPaint;
   final Paint _strokePaint;
@@ -38,14 +20,26 @@ class OuterCircle extends CustomPainter {
           ..strokeWidth = 30,
         super(repaint: shift);
 
+  double lerp(double min, double max) => min + (max - min) * shift.value;
+
   @override
   void paint(Canvas canvas, Size size) {
     canvas.save();
-
     final w = size.width;
     final h = size.height;
     final center = Offset(w / 2, h / 2);
     final rect = Rect.fromCenter(center: center, width: w * .7, height: w * .7);
+
+    final paint = Paint()
+      ..strokeWidth = 9.0
+      ..shader = RadialGradient(
+        radius: lerp(0.0, 2.0),
+        colors: const [
+          Colors.purple,
+          Colors.transparent,
+        ],
+      ).createShader(rect);
+    canvas.drawPaint(paint);
     final path = Path();
     path.addArc(
       rect,
@@ -63,6 +57,7 @@ class OuterCircle extends CustomPainter {
     canvas.drawPath(p, _strokePaint);
     _innerPaint.color = Colors.white;
     canvas.drawCircle(point, _paint.strokeWidth / 2, _innerPaint);
+
     canvas.restore();
   }
 

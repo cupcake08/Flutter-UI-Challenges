@@ -15,11 +15,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.blue),
       home: Scaffold(
         backgroundColor: Colors.black,
+        extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: const Text("Rolly Ball"),
           centerTitle: true,
           shadowColor: Colors.transparent,
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
         ),
         body: const Home(),
       ),
@@ -44,9 +45,9 @@ class _HomeState extends State<Home> {
     _scrollController.addListener(_listener);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent / 3,
-        duration: const Duration(seconds: 1),
-        curve: Curves.easeInOut,
+        _scrollController.position.maxScrollExtent * .6,
+        duration: const Duration(milliseconds: 1800),
+        curve: Curves.ease,
       );
     });
   }
@@ -76,12 +77,13 @@ class _HomeState extends State<Home> {
         ),
         SizedBox(
           height: context.height / 3,
-          width: context.width / 2,
+          width: context.width / 2.5,
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
             itemExtent: 45,
-            squeeze: 1.06,
-            diameterRatio: .7,
+            squeeze: 1.33,
+            perspective: .005,
+            diameterRatio: 1,
             physics: const BouncingScrollPhysics(),
             childDelegate: ListWheelInfiniteDelegate(
               childCount: 15,
@@ -127,6 +129,3 @@ class ListWheelInfiniteDelegate extends ListWheelChildDelegate {
     return child != oldDelegate.child || childCount != oldDelegate.childCount;
   }
 }
-
-// class CircleClipper extends CustomClipper
-// class CircleClipper extends CliP

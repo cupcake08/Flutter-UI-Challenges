@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:rolly_ball/custom_painters.dart';
 import 'package:rolly_ball/extensions.dart';
@@ -44,11 +46,14 @@ class _HomeState extends State<Home> {
     super.initState();
     _scrollController.addListener(_listener);
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent * .6,
-        duration: const Duration(milliseconds: 1800),
-        curve: Curves.ease,
-      );
+      // timer is there just to demo purpose.
+      Timer(const Duration(milliseconds: 1000), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent * .6,
+          duration: const Duration(milliseconds: 1800),
+          curve: Curves.ease,
+        );
+      });
     });
   }
 
@@ -80,8 +85,8 @@ class _HomeState extends State<Home> {
           width: context.width / 2.5,
           child: ListWheelScrollView.useDelegate(
             controller: _scrollController,
-            itemExtent: 45,
-            squeeze: 1.33,
+            itemExtent: 50,
+            squeeze: 1.3,
             perspective: .005,
             diameterRatio: 1,
             physics: const BouncingScrollPhysics(),
@@ -98,16 +103,10 @@ class _HomeState extends State<Home> {
         ),
       ],
     );
-    // return CustomPaint(
-    //   painter: OuterCircle(.3),
-    //   foregroundPainter: InnerCircle(),
-    //   size: context.screenSize,
-    // );
   }
 }
 
 class ListWheelInfiniteDelegate extends ListWheelChildDelegate {
-  /// Constructs the delegate from a builder callback.
   ListWheelInfiniteDelegate({
     required this.child,
     required this.childCount,
